@@ -1,0 +1,54 @@
+From: Dmitry Smirnov <onlyjob@debian.org>
+Date: Wed, 9 Feb 2022 03:54:31 +0800
+Subject: removed "kardianos/osext" which is obsolete on go-1.8+
+
+Last-Update: 2018-07-04
+Forwarded: https://github.com/bugsnag/panicwrap/issues/9
+Bug-Upstream: https://github.com/bugsnag/panicwrap/issues/9
+---
+ monitor.go   | 3 +--
+ panicwrap.go | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/monitor.go b/monitor.go
+index 1bb27e8..3e7b945 100644
+--- a/monitor.go
++++ b/monitor.go
+@@ -3,7 +3,6 @@
+ package panicwrap
+ 
+ import (
+-	"github.com/kardianos/osext"
+ 	"os"
+ 	"os/exec"
+ )
+@@ -29,7 +28,7 @@ func monitor(c *WrapConfig) (int, error) {
+ 		os.Exit(0)
+ 	}
+ 
+-	exePath, err := osext.Executable()
++	exePath, err := os.Executable()
+ 	if err != nil {
+ 		return -1, err
+ 	}
+diff --git a/panicwrap.go b/panicwrap.go
+index 7a7fe29..315f0e3 100644
+--- a/panicwrap.go
++++ b/panicwrap.go
+@@ -12,7 +12,6 @@ package panicwrap
+ import (
+ 	"bytes"
+ 	"errors"
+-	"github.com/kardianos/osext"
+ 	"io"
+ 	"os"
+ 	"os/exec"
+@@ -143,7 +142,7 @@ func wrap(c *WrapConfig) (int, error) {
+ 	}
+ 
+ 	// Get the path to our current executable
+-	exePath, err := osext.Executable()
++	exePath, err := os.Executable()
+ 	if err != nil {
+ 		return -1, err
+ 	}
